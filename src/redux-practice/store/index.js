@@ -3,7 +3,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 // 관리할 초기 상태값 객체
 const initialCountState = {
   counter: 0,
-  showCounter: true
+  showCounter: true,
 };
 
 // reducer: 상태 변경을 위한 순수 함수 - 부수 효과(비동기코드...)가 없는 함수
@@ -22,7 +22,7 @@ const initialCountState = {
   prop3: reducers - 기존 리듀서에서 사용하던 내용들(실제 액션)
 */
 const counterSlice = createSlice({
-  name: 'counter',
+  name: "counter",
   initialState: initialCountState,
   reducers: {
     increment(state) {
@@ -39,13 +39,28 @@ const counterSlice = createSlice({
     toggle(state) {
       state.showCounter = !state.showCounter;
     },
-  }
+  },
+});
+
+// 인증 관련 초기 상태값
+const initialAuthState = {
+  isLoggedIn: false,
+};
+
+// 인증 관련 슬라이스 추가
+const authSlice = createSlice({
+  name: "auth",
+  initialState: initialAuthState,
+  reducers: {},
 });
 
 // 단하나의 리덕스 스토어
 // 스토어에는 여러 리듀서를 제공할 수 있다.
 const store = configureStore({
-  reducer: counterSlice.reducer
+  reducer: {
+    counter: counterSlice.reducer,
+    auth: authSlice.reducer,
+  },
 });
 
 // 슬라이스 안에 reducers에 정의한 함수들을 내보내기
